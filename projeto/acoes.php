@@ -10,7 +10,7 @@ function cadastro() {
         $email = $_POST['email'];
         $telefone = $_POST['telefone'];
 
-        $arquivo = fopen('projeto/dados/contatos.csv', 'a+');
+        $arquivo = fopen('dados/contatos.csv', 'a+');
 
         fwrite($arquivo, "{$nome};{$email};{$telefone};".PHP_EOL);
 
@@ -30,7 +30,7 @@ function home() {
 }
 
 function listar() {
-    $contatos = file('projeto/dados/contatos.csv');
+    $contatos = file('dados/contatos.csv');
 
     include 'telas/listar.php';
 }
@@ -46,13 +46,13 @@ function relatorio() {
 function excluir() {
     $id = $_GET['id'];
 
-    $contatos = file('projeto/dados/contatos.csv');
+    $contatos = file('dados/contatos.csv');
 
     unset($contatos[$id]);
 
-    unlink('projeto/dados/contatos.csv');
+    unlink('dados/contatos.csv');
 
-    $arquivo = fopen('projeto/dados/contatos.csv', 'a+');
+    $arquivo = fopen('dados/contatos.csv', 'a+');
 
     foreach ($contatos as $cadaContato) {
         fwrite($arquivo, $cadaContato);
@@ -65,7 +65,7 @@ function excluir() {
 function editar() {
     $id = $_GET['id'];
 
-    $contatos = file('projeto/dados/contatos.csv');
+    $contatos = file('dados/contatos.csv');
 
     if($_POST) {
         $nome = $_POST['nome'];
@@ -74,9 +74,9 @@ function editar() {
 
         $contatos[$id] = "{$nome};{$email};{$telefone}".PHP_EOL;
 
-        unlink('projeto/dados/contatos.csv');
+        unlink('dados/contatos.csv');
 
-        $arquivo = fopen('projeto/dados/contatos.csv', 'a+');
+        $arquivo = fopen('dados/contatos.csv', 'a+');
 
         foreach($contatos as $cadaContato) {
             fwrite($arquivo, $cadaContato);
